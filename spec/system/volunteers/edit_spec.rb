@@ -5,7 +5,17 @@ RSpec.describe "volunteers/edit", :disable_bullet, type: :system do
   let(:admin) { create(:casa_admin, casa_org_id: organization.id) }
   let(:volunteer) { create(:volunteer, casa_org_id: organization.id) }
 
-  describe "updating volunteer personal data", :disable_bullet do
+  it "shows invite and login info" do
+    sign_in admin
+    visit edit_volunteer_path(volunteer)
+    expect(page).to have_text "Added to system "
+    expect(page).to have_text "Invitation email sent never"
+    expect(page).to have_text "Last logged in"
+    expect(page).to have_text "Invitation accepted never"
+    expect(page).to have_text "Password reset last sent never"
+  end
+
+  describe "updating volunteer personal data" do
     before do
       sign_in admin
       visit edit_volunteer_path(volunteer)
@@ -165,7 +175,7 @@ RSpec.describe "volunteers/edit", :disable_bullet, type: :system do
     end
   end
 
-  describe "inactive case visibility", :disable_bullet do
+  describe "inactive case visibility" do
     let!(:active_casa_case) { create(:casa_case, casa_org: organization, case_number: "ACTIVE") }
     let!(:inactive_casa_case) { create(:casa_case, casa_org: organization, active: false, case_number: "INACTIVE") }
     let!(:volunteer) { create(:volunteer, display_name: "Awesome Volunteer", casa_org: organization) }
@@ -180,7 +190,7 @@ RSpec.describe "volunteers/edit", :disable_bullet, type: :system do
     end
   end
 
-  describe "resend invite", :disable_bullet do
+  describe "resend invite" do
     let(:supervisor) { create(:supervisor, casa_org: organization) }
 
     it "allows a supervisor resend invitation to a volunteer" do
