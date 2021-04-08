@@ -147,6 +147,8 @@ class DbPopulator
         )
       end
       casa_org_volunteers = volunteers.select { |volunteer| volunteer.casa_org_id == casa_org.id }
+      # sometimes errors in cypress https://github.com/rubyforgood/casa/runs/2291024858?check_suite_focus=true
+      # ActiveRecord::RecordInvalid: Validation failed: Volunteer must exist, Volunteer can't be blank, Volunteer Case assignee must be a volunteer
       CaseAssignment.find_or_create_by!(casa_case: new_casa_case, volunteer: casa_org_volunteers.sample(random: rng))
 
       random_case_contact_count.times do
