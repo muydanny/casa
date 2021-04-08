@@ -66,10 +66,10 @@ RSpec.configure do |config|
         Bullet.end_request
       end
     end
-    config.around :each, :disable_bullet do |example|
-      Bullet.raise = false
-      example.run
-      Bullet.raise = true
-    end
+  end
+  config.around :each, :disable_bullet do |example|
+    Bullet.raise = false
+    example.run
+    Bullet.raise = true
   end
 end
