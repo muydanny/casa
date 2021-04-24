@@ -1,15 +1,19 @@
 require "rails_helper"
 
-RSpec.describe ContactType, :disable_bullet, type: :model do
-  let(:contact_type) { create(:contact_type, name: "Name") }
+RSpec.describe ContactType, type: :model do
+  let(:contact_type_group) { create(:contact_type_group, name: "Group 1") }
+  let(:contact_type) { create(:contact_type, name: "Type 1", contact_type_group: contact_type_group) }
 
-  describe "#create", :disable_bullet do
-    it "does have a name" do
+  describe "#create" do
+    it "does have a unique name" do
+      new_contact_type = create(:contact_type, name: "Type 1", contact_type_group: contact_type_group)
       is_expected.to validate_presence_of(:name)
+      expect(new_contact_type).to validate_uniqueness_of(:name).scoped_to(:contact_type_group_id)
+        .with_message("should be unique per contact type group")
     end
   end
 
-  describe "#update", :disable_bullet do
+  describe "#update" do
     it "can update to a valid name" do
       contact_type.name = "New name"
       contact_type.save
