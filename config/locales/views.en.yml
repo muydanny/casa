@@ -32,6 +32,7 @@ en:
         court_report_due_date: Court Report Due Date
         court_report_status: Court Report Status
         court_report_submitted_date: Court Report Submitted Date
+        court_mandates: Court Mandates
         assigned_volunteers: Assigned Volunteers
       button:
         new_contact: New Case Contact
@@ -272,6 +273,7 @@ en:
         do_not: Do not
         change_values: change any of the values in the first line of the example csv file.
         import: Then click the "Import Volunteers CSV" button to import your volunteers.
+        note: This will email the new volunteers asking them to log in! 
       disable_with: Importing File
     index:
       title: Import Categories
